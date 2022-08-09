@@ -1,32 +1,65 @@
+<!--
+ * @Descripttion: 
+ * @Author: TaoWang
+ * @Date: 2022-08-07 21:45:10
+-->
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
+    <router-view />
   </div>
 </template>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
+<script>
+  export default {
+    mounted() {
+      let beginTime = 0 //开始时间
+      let differTime = 0 //时间差
+      let _this = this
+      window.onunload = function () {
+        differTime = new Date().getTime() - beginTime
+        if (differTime <= 5) {
+          // 浏览器关闭
+          _this.$storage.clearItem("userInfo")
+        }
+      }
+      window.onbeforeunload = function () {
+        beginTime = new Date().getTime()
+      }
+    },
+  }
+</script>
+<style lang="less">
+  @import "./assets/style/reset";
+  // 头部区域
+  .top-wrapper {
+    width: 100%;
+    height: 56px;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    line-height: 56px;
+    .top-left {
+      margin-left: 55px;
+      a {
+        color: #5cb85c;
+        font-weight: 900;
+      }
+    }
+    .top-right > ul {
+      margin-right: 55px;
+      display: flex;
+      list-style: none;
+      li {
+        width: 60px;
+        a {
+          color: rgba(0, 0, 0, 0.3);
+        }
+        a:hover {
+          color: rgba(0, 0, 0, 0.5);
+        }
+      }
+    }
+  }
+  .active {
+    color: #000 !important;
+  }
 </style>

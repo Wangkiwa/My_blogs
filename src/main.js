@@ -7,9 +7,15 @@ import Vue from "vue"
 import App from "./App.vue"
 import router from "./router"
 import store from "./store"
-
+import config from "./config/"
+import request from "./utils/request"
+import { Button, Message } from "element-ui"
+import storage from "./utils/storage"
+Vue.use(Button)
+Vue.prototype.$http = request
+Vue.prototype.$message = Message
+Vue.prototype.$storage = storage
 Vue.config.productionTip = false
-console.log("环境变量", process.env)
 new Vue({
   router,
   store,
