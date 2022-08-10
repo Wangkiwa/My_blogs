@@ -16,7 +16,7 @@
       let _this = this
       window.onunload = function () {
         differTime = new Date().getTime() - beginTime
-        if (differTime <= 5) {
+        if (differTime <= 3) {
           // 浏览器关闭
           _this.$storage.clearItem("userInfo")
         }
@@ -37,6 +37,7 @@
     display: flex;
     justify-content: space-between;
     line-height: 56px;
+    position: relative;
     .top-left {
       margin-left: 55px;
       a {
@@ -56,6 +57,23 @@
         a:hover {
           color: rgba(0, 0, 0, 0.5);
         }
+      }
+    }
+    .userTopRight > ul {
+      display: flex;
+      float: left;
+      li {
+        width: 80px;
+        text-align: center;
+        a {
+          color: rgba(0, 0, 0, 0.3);
+        }
+        a:hover {
+          color: rgba(0, 0, 0, 0.5);
+        }
+      }
+      li:last-child {
+        margin-right: 82px;
       }
     }
   }

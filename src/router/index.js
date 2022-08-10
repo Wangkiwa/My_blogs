@@ -31,6 +31,30 @@ const routes = [
     },
     component: () => import("../views/SignUp.vue"),
   },
+  {
+    path: "/editor",
+    name: "Editor",
+    meta: {
+      title: "文章发布",
+    },
+    component: () => import("../views/Editor.vue"),
+  },
+  {
+    path: "/settings",
+    name: "Setting",
+    meta: {
+      title: "设置",
+    },
+    component: () => import("../views/Settings.vue"),
+  },
+  {
+    path: "/:username",
+    name: "User",
+    meta: {
+      title: "用户信息",
+    },
+    component: () => import("../views/User.vue"),
+  },
 ]
 
 const router = new VueRouter({

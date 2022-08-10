@@ -1,22 +1,53 @@
-<!--
- * @Descripttion: 全部文章
- * @Author: TaoWang
- * @Date: 2022-08-08 13:49:00
--->
 <template>
-  <div>
-    <PreviewAticle></PreviewAticle>
+  <div class="Articles-wrapper">
+    <div class="acticles" v-for="(artilce, index) in articles" :key="index">
+      <div class="acticle-meta">
+        <div class="meta-left">
+          <!-- 头像信息 -->
+          <div class="imgs-wrapper">
+            <img src="../assets/logo.png" alt="" />
+          </div>
+          <!-- 作者信息 -->
+          <div class="info">
+            <router-link to="/">{{ artilce.author.username }}</router-link>
+            <br />
+            <router-link to="/">
+              {{ artilce.createdAt | dateString }}
+            </router-link>
+          </div>
+        </div>
+        <div class="meta-right">
+          <button>♥</button>
+        </div>
+      </div>
+      <div class="preview-link">
+        <router-link to="/">
+          <h1>{{ artilce.title }}</h1>
+          <p>{{ artilce.description }}</p>
+          <div class="preview">
+            <span class="readMore">阅读更多...</span>
+            <ul>
+              <li v-for="(tag, index) in artilce.tagList" :key="index">
+                {{ tag }}
+              </li>
+            </ul>
+          </div>
+        </router-link>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-  import PreviewAticle from "../components/PreviewAticle.vue"
+  import { mapState } from "vuex"
   export default {
-    components: { PreviewAticle },
     data() {
       return {
         articles: [],
       }
+    },
+    computed: {
+      ...mapState(["userInfo"]),
     },
     created() {
       this.getAllArticles()
@@ -28,11 +59,11 @@
           url: "/articles",
         })
         this.articles = res.articles
-        console.log("res===>", res)
       },
     },
   }
 </script>
+
 <style lang="less">
   .Articles-wrapper {
     width: 100%;
@@ -54,6 +85,11 @@
             width: 33px;
             height: 100%;
             border-radius: 50%;
+            img {
+              display: block;
+              width: 100%;
+              height: 100%;
+            }
           }
           .info {
             width: 100px;
@@ -64,6 +100,9 @@
               font-size: 16px;
             }
             a:last-child {
+              margin-top: 5px;
+              width: 170px;
+              display: block;
               font-size: 8px;
               color: #bbb;
             }

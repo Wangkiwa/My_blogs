@@ -11,7 +11,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    userInfo: { ...storage.getItem("userInfo"), token: "" } || "",
+    userInfo: storage.getItem("userInfo") || "",
   },
   getters: {},
   mutations,

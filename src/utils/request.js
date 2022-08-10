@@ -38,11 +38,11 @@ $http.interceptors.response.use(res => {
   }
 })
 function request(options) {
-  options.method = options.method || "get"
-  if (options.method.toLowerCase() === "get") {
-    // get请求将data转为params
-    options.params = options.data
-  }
+  // options.method = options.method || "get"
+  // if (options.method.toLowerCase() === "get") {
+  //   // get请求将data转为params
+  //   options.params = options.data
+  // }
   return $http(options)
 }
 export default request

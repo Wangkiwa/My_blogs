@@ -9,9 +9,13 @@ import router from "./router"
 import store from "./store"
 import config from "./config/"
 import request from "./utils/request"
+import dayjs from "dayjs"
 import { Button, Message } from "element-ui"
 import storage from "./utils/storage"
 Vue.use(Button)
+Vue.filter("dateString", function (value) {
+  return dayjs(value).format("YYYY-MM-DD HH:mm:ss")
+})
 Vue.prototype.$http = request
 Vue.prototype.$message = Message
 Vue.prototype.$storage = storage

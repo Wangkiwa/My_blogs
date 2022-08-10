@@ -7,7 +7,7 @@
   <div class="home-wrapper">
     <Top></Top>
     <!-- banner区域 -->
-    <div class="banner-wrapper">
+    <div class="banner-wrapper" v-if="!userInfo.token">
       <span>一个分享你知识的地方</span>
     </div>
     <!-- 内容区域 -->
@@ -17,17 +17,21 @@
           <div class="feed-toggle">
             <ul class="nav">
               <!-- <el-button @click="sendData">发送</el-button> -->
-              <li :class="{ activeLine: isActive }" @click="isActive = true">
+              <li
+                :class="{ activeLine: !isActive }"
+                @click="isActive = false"
+                v-if="userInfo.token"
+              >
                 个人文章
               </li>
-              <li :class="{ activeLine: !isActive }" @click="isActive = false">
+              <li :class="{ activeLine: isActive }" @click="isActive = true">
                 全部文章
               </li>
             </ul>
           </div>
-
-          <SelfActicles v-show="isActive"></SelfActicles>
-          <Articles v-show="!isActive"></Articles>
+          <!-- 文章路由 -->
+          <SelfActicles v-show="!isActive"></SelfActicles>
+          <Articles v-show="isActive"></Articles>
         </div>
         <!-- 标签路由 -->
         <div class="Tags-wrapper">
@@ -39,6 +43,7 @@
 </template>
 
 <script>
+  import { mapState } from "vuex"
   import Top from "../views/Top.vue"
   import Tags from "../views/Tags.vue"
   import Articles from "../views/Articles.vue"
@@ -49,20 +54,14 @@
         isActive: true, //是否显示个人文章 true为个人
       }
     },
-
+    computed: {
+      ...mapState(["userInfo"]),
+    },
     components: {
       Top,
       Tags,
       Articles,
       SelfActicles,
-    },
-
-    methods: {
-      // sendData() {
-      //   this.$http({
-      //     url: "user",
-      //   })
-      // },
     },
   }
 </script>
@@ -130,22 +129,25 @@
         margin: 0 auto;
         display: flex;
         justify-content: space-between;
-        background-color: antiquewhite;
         .articles-wrapper {
           width: 65%;
           height: 100%;
           .feed-toggle {
             width: 100%;
             height: 40px;
-            border-bottom: 1px solid #373a3c;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
             .nav {
               display: flex;
               li {
                 display: block;
-                width: 80px;
+                width: 65px;
                 height: 24px;
                 margin-top: 15px;
                 cursor: pointer;
+                color: #aaa;
+              }
+              li:last-child {
+                margin-left: 10px;
               }
             }
           }
@@ -159,6 +161,7 @@
     }
   }
   .activeLine {
+    color: #5cb85c !important;
     border-bottom: 2px solid #5cb85c;
   }
 </style>
