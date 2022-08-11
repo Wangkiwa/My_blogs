@@ -30,50 +30,54 @@
 <style lang="less">
   @import "./assets/style/reset";
   // 头部区域
-  .top-wrapper {
+  .top-father {
     width: 100%;
     height: 56px;
-    font-size: 20px;
-    display: flex;
-    justify-content: space-between;
-    line-height: 56px;
-    position: relative;
-    .top-left {
-      margin-left: 55px;
-      a {
-        color: #5cb85c;
-        font-weight: 900;
-      }
-    }
-    .top-right > ul {
-      margin-right: 55px;
+    .top-wrapper {
+      width: 100%;
+      height: 56px;
+      font-size: 20px;
       display: flex;
-      list-style: none;
-      li {
-        width: 60px;
+      justify-content: space-between;
+      line-height: 56px;
+      position: relative;
+      .top-left {
+        margin-left: 55px;
         a {
-          color: rgba(0, 0, 0, 0.3);
-        }
-        a:hover {
-          color: rgba(0, 0, 0, 0.5);
+          color: #5cb85c;
+          font-weight: 900;
         }
       }
-    }
-    .userTopRight > ul {
-      display: flex;
-      float: left;
-      li {
-        width: 80px;
-        text-align: center;
-        a {
-          color: rgba(0, 0, 0, 0.3);
-        }
-        a:hover {
-          color: rgba(0, 0, 0, 0.5);
+      .top-right > ul {
+        margin-right: 55px;
+        display: flex;
+        list-style: none;
+        li {
+          width: 60px;
+          a {
+            color: rgba(0, 0, 0, 0.3);
+          }
+          a:hover {
+            color: rgba(0, 0, 0, 0.5);
+          }
         }
       }
-      li:last-child {
-        margin-right: 82px;
+      .userTopRight > ul {
+        display: flex;
+        float: left;
+        li {
+          width: 80px;
+          text-align: center;
+          a {
+            color: rgba(0, 0, 0, 0.3);
+          }
+          a:hover {
+            color: rgba(0, 0, 0, 0.5);
+          }
+        }
+        li:last-child {
+          margin-right: 82px;
+        }
       }
     }
   }
