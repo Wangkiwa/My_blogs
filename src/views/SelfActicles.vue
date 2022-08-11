@@ -23,7 +23,19 @@
             </div>
           </div>
           <div class="meta-right">
-            <button>♥</button>
+            <!-- 收藏 -->
+            <button
+              :class="
+                favorited[index].includes(userInfo._id)
+                  ? 'Collect'
+                  : 'noCollect'
+              "
+              @click="collectBtn(artilce._id, index)"
+              ref="showBTN"
+            >
+              ♥
+              <i>{{ artilce.favoritesCount }}</i>
+            </button>
           </div>
         </div>
         <div class="preview-link">
@@ -51,6 +63,7 @@
     data() {
       return {
         articles: [],
+        favorited: [],
       }
     },
     computed: {
@@ -69,6 +82,40 @@
           },
         })
         this.articles = res.articles
+        // 遍历出来收藏的数据
+        const favorited = this.articles.map(item => item.favorited)
+        this.favorited = favorited
+      },
+      // 收藏
+      async collectBtn(id, index) {
+        if (this.userInfo._id) {
+          if (this.favorited[index].indexOf(this.userInfo._id) !== -1) {
+            // TODO取消收藏
+            const res = await this.$http({
+              method: "delete",
+              url: "/articles/" + id + "/favorite",
+            })
+            this.getAllArticles()
+            this.$nextTick(() => {
+              this.$refs.showBTN[index].className = "noCollect"
+            })
+            this.$message.warning(res.message)
+          } else {
+            //TODO 收藏
+            const res = await this.$http({
+              method: "post",
+              url: "/articles/" + id + "/favorite",
+            })
+            this.getAllArticles()
+            this.$nextTick(() => {
+              this.$refs.showBTN[index].className = "Collect"
+            })
+            this.$message.success(res.message)
+          }
+        } else {
+          this.$message.error("请登录后收藏")
+          this.$router.push("/login")
+        }
       },
     },
   }
@@ -111,6 +158,8 @@
           }
         }
         .meta-right {
+          button {
+          }
         }
         margin-bottom: 16px;
       }

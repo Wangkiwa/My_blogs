@@ -30,8 +30,8 @@
             </ul>
           </div>
           <!-- 文章路由 -->
-          <SelfActicles v-show="!isActive"></SelfActicles>
-          <Articles v-show="isActive"></Articles>
+          <SelfActicles v-if="!isActive"></SelfActicles>
+          <Articles v-if="isActive"></Articles>
         </div>
         <!-- 标签路由 -->
         <div class="Tags-wrapper">

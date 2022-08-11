@@ -19,7 +19,7 @@ const $http = axios.create({
 $http.interceptors.request.use(req => {
   // 获取Token
   const { token } = storage.getItem("userInfo") || []
-  req.headers.Authorization = "Bearer" + token
+  req.headers.Authorization = "Bearer " + token
   return req
 })
 // 响应拦截

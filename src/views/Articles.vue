@@ -70,6 +70,13 @@
           }
         }
         .meta-right {
+          button {
+            color: #5cb85c;
+            background-color: transparent;
+            border: none;
+            border: 1px solid #5cb85c;
+            border-radius: 14px;
+          }
         }
         margin-bottom: 16px;
       }
