@@ -5,11 +5,13 @@
         <div class="meta-left">
           <!-- 头像信息 -->
           <div class="imgs-wrapper">
-            <img src="../assets/logo.png" alt="" />
+            <img :src="'http://localhost:8888' + artilce.author.image" alt="" />
           </div>
           <!-- 作者信息 -->
           <div class="info">
-            <router-link to="/">{{ artilce.author.username }}</router-link>
+            <router-link to="/">
+              {{ artilce.author.username }}
+            </router-link>
             <br />
             <router-link to="/">
               {{ artilce.createdAt | dateString }}

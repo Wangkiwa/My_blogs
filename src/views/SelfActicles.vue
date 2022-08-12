@@ -11,7 +11,10 @@
           <div class="meta-left">
             <!-- 头像信息 -->
             <div class="imgs-wrapper">
-              <img src="../assets/logo.png" alt="" />
+              <img
+                :src="'http://localhost:8888' + artilce.author.image"
+                alt=""
+              />
             </div>
             <!-- 作者信息 -->
             <div class="info">
