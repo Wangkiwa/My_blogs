@@ -51,9 +51,11 @@
               <div class="preview">
                 <span class="readMore">阅读更多...</span>
                 <ul>
-                  <li v-for="(tag, index) in artilce.tagList" :key="index">
-                    {{ tag }}
-                  </li>
+                  <template v-for="(tag, index) in artilce.tagList">
+                    <li :key="index" v-if="tag">
+                      {{ tag }}
+                    </li>
+                  </template>
                 </ul>
               </div>
             </router-link>
