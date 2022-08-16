@@ -1,7 +1,7 @@
 <!--
- * @Descripttion: 文章发布 
+ * @Descripttion: 编辑文章动态路由
  * @Author: TaoWang
- * @Date: 2022-08-10 11:33:33
+ * @Date: 2022-08-16 18:48:56
 -->
 <template>
   <div>
@@ -11,13 +11,13 @@
         <input
           type="text"
           placeholder="文章标题"
-          v-model="sendData.article.title"
+          v-model="articleInfo.article.title"
         />
         <br />
         <input
           type="text"
           placeholder="这篇文章是关于什么的？"
-          v-model="sendData.article.description"
+          v-model="articleInfo.article.description"
         />
         <textarea
           name=""
@@ -25,7 +25,7 @@
           cols="115"
           rows="20"
           placeholder="文章内容"
-          v-model="sendData.article.body"
+          v-model="articleInfo.article.body"
         ></textarea>
         <input
           type="text"
@@ -46,6 +46,11 @@
     name: "Editor",
     data() {
       return {
+        articleInfo: {
+          article: {
+            tagList: [],
+          },
+        },
         sendData: {
           article: {
             title: "",
@@ -60,28 +65,38 @@
     components: {
       Top,
     },
-
+    created() {
+      this.getArticle()
+    },
     methods: {
-      // 发布文章
-      async sendArticleBtn() {
-        this.sendData.article.tagList = this.tags.split(" ")
+      // 获取文章信息
+      async getArticle() {
+        const articleId = location.hash.split("editor/")[1]
         const res = await this.$http({
-          method: "post",
-          url: "/articles",
-          data: this.sendData,
+          method: "get",
+          url: "/articles/" + articleId,
         })
         console.log(res)
-        if (res.status === 201) {
-          this.sendData.article.title = ""
-          this.sendData.article.description = ""
-          this.sendData.article.body = ""
-          this.tags = ""
-          this.sendData.article.tagList = []
-          return this.$message.success("文章发布成功！")
-        } else {
-          const errorMsg = res.errors.map(item => item.msg).toString()
-          this.$message.error(errorMsg + "!")
+        this.tags = res.article.tagList.join(" ")
+        this.articleInfo.article = res.article
+      },
+      // 发送文章
+      async sendArticleBtn() {
+        const res = await this.$http({
+          method: "put",
+          url: "/articles/" + this.articleInfo.article["_id"],
+          data: this.articleInfo,
+        })
+        console.log(res)
+        if (res.status === 200) {
+          this.getArticle()
+          this.$message.success("修改文章成功！")
         }
+      },
+    },
+    watch: {
+      tags(newVal) {
+        this.articleInfo.article.tagList = newVal.split(" ")
       },
     },
   }

@@ -103,6 +103,8 @@
           this.$message.success("更新成功！")
           this.userInfo.password = ""
           this.getUserInfo()
+        } else {
+          this.$message.error(userInfo.msg)
         }
       },
     },
@@ -119,9 +121,9 @@
       height: 800px;
       margin: 0 auto;
       .imgFile {
-        width: 100px;
-        height: 100px;
-        margin-left: 50%;
+        width: 113px;
+        height: 113px;
+        margin-left: 41%;
         border-radius: 50%;
         padding: 15px;
         img {

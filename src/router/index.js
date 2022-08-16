@@ -55,6 +55,22 @@ const routes = [
     },
     component: () => import("../views/User.vue"),
   },
+  {
+    path: "/article/:articleId",
+    name: "Article",
+    meta: {
+      title: "文章信息",
+    },
+    component: () => import("../views/Article.vue"),
+  },
+  {
+    path: "/editor/:articleId",
+    name: "EditArticle",
+    meta: {
+      title: "编辑文章",
+    },
+    component: () => import("../views/Edit.vue"),
+  },
 ]
 
 const router = new VueRouter({

@@ -18,9 +18,11 @@
             </div>
             <!-- 作者信息 -->
             <div class="info">
-              <router-link to="/">{{ userInfo.username }}</router-link>
+              <router-link :to="'@' + artilce.author.username">
+                {{ artilce.author.username }}
+              </router-link>
               <br />
-              <router-link to="/">
+              <router-link :to="'@' + artilce.author.username">
                 {{ artilce.createdAt | dateString }}
               </router-link>
             </div>
@@ -42,15 +44,17 @@
           </div>
         </div>
         <div class="preview-link">
-          <router-link to="/">
+          <router-link :to="'/article/' + artilce._id">
             <h1>{{ artilce.title }}</h1>
             <p>{{ artilce.description }}</p>
             <div class="preview">
               <span class="readMore">阅读更多...</span>
               <ul>
-                <li v-for="(tag, index) in artilce.tagList" :key="index">
-                  {{ tag }}
-                </li>
+                <template v-for="(tag, index) in artilce.tagList">
+                  <li :key="index" v-if="tag">
+                    {{ tag }}
+                  </li>
+                </template>
               </ul>
             </div>
           </router-link>
@@ -81,7 +85,9 @@
           method: "get",
           url: "/articles",
           params: {
-            author: this.userInfo.username,
+            author: this.$route.params.username
+              ? this.$route.params.username.slice(1)
+              : this.userInfo.username,
           },
         })
         this.articles = res.articles
@@ -124,7 +130,7 @@
   }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   .Articles-wrapper {
     width: 100%;
     height: 100%;

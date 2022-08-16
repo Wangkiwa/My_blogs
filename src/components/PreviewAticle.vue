@@ -9,11 +9,11 @@
           </div>
           <!-- 作者信息 -->
           <div class="info">
-            <router-link to="/">
+            <router-link :to="'@' + artilce.author.username">
               {{ artilce.author.username }}
             </router-link>
             <br />
-            <router-link to="/">
+            <router-link :to="'@' + artilce.author.username">
               {{ artilce.createdAt | dateString }}
             </router-link>
           </div>
@@ -33,15 +33,18 @@
         </div>
       </div>
       <div class="preview-link">
-        <router-link to="/">
+        <router-link :to="'/article/' + artilce._id">
           <h1>{{ artilce.title }}</h1>
           <p>{{ artilce.description }}</p>
           <div class="preview">
             <span class="readMore">阅读更多...</span>
+            <!-- 标签 -->
             <ul>
-              <li v-for="(tag, index) in artilce.tagList" :key="index">
-                {{ tag }}
-              </li>
+              <template v-for="(tag, index) in artilce.tagList">
+                <li :key="index" v-if="tag">
+                  {{ tag }}
+                </li>
+              </template>
             </ul>
           </div>
         </router-link>
@@ -66,6 +69,7 @@
       this.getAllArticles()
     },
     methods: {
+      // 获取所有文章
       async getAllArticles() {
         const res = await this.$http({
           method: "get",
@@ -86,9 +90,9 @@
               url: "/articles/" + id + "/favorite",
             })
             this.getAllArticles()
-            this.$nextTick(() => {
-              this.$refs.showBTN[index].className = "noCollect"
-            })
+            // this.$nextTick(() => {
+            //   this.$refs.showBTN[index].className = "noCollect"
+            // })
             this.$message.warning(res.message)
           } else {
             //TODO 收藏
@@ -97,9 +101,9 @@
               url: "/articles/" + id + "/favorite",
             })
             this.getAllArticles()
-            this.$nextTick(() => {
-              this.$refs.showBTN[index].className = "Collect"
-            })
+            // this.$nextTick(() => {
+            //   this.$refs.showBTN[index].className = "Collect"
+            // })
             this.$message.success(res.message)
           }
         } else {
@@ -191,6 +195,7 @@
                 text-align: center;
                 padding: 3px 8px;
                 margin-right: 4px;
+                color: #aaa !important;
               }
             }
             .readMore {

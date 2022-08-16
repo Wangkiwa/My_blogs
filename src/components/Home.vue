@@ -34,9 +34,9 @@
           <Articles v-if="isActive"></Articles>
         </div>
         <!-- 标签路由 -->
-        <div class="Tags-wrapper">
+        <!-- <div class="Tags-wrapper">
           <Tags></Tags>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
