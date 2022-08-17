@@ -30,8 +30,12 @@
             </ul>
           </div>
           <!-- 文章路由 -->
-          <SelfActicles v-if="!isActive"></SelfActicles>
-          <Articles v-if="isActive"></Articles>
+          <transition name="active">
+            <SelfActicles v-if="!isActive"></SelfActicles>
+          </transition>
+          <transition name="active">
+            <Articles v-if="isActive"></Articles>
+          </transition>
         </div>
         <!-- 标签路由 -->
         <!-- <div class="Tags-wrapper">
@@ -163,5 +167,28 @@
   .activeLine {
     color: #5cb85c !important;
     border-bottom: 2px solid #5cb85c;
+  }
+  @keyframes active {
+    0% {
+      opacity: 0.2;
+    }
+    25% {
+      opacity: 0.4;
+    }
+    50% {
+      opacity: 0.6;
+    }
+    75% {
+      opacity: 0.8;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  .active-enter-active {
+    animation: active 1s ease-in-out;
+  }
+  .active-leave-active {
+    animation: active 1s ease-in-out;
   }
 </style>

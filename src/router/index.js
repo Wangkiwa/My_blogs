@@ -79,13 +79,18 @@ const routes = [
 
 const router = new VueRouter({
   routes,
+  scrollBehavior(to, from, scrollBehavior) {
+    return { x: 0, y: 0 }
+  },
 })
+// 全局前置路由
 router.beforeEach((to, from, next) => {
   if (to.path === "/login" || to.path === "/register" || to.path === "/")
     return next()
   if (!storage.getItem("userInfo")) return next("/login")
   next()
 })
+// 全局后置路由
 router.afterEach((to, from) => {
   document.title = to.meta.title
 })

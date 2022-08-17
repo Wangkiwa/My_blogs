@@ -178,10 +178,16 @@
             color: rgba(0, 0, 0);
           }
           p {
-            font-size: 16px;
+            font-size: 14px !important;
+            line-height: 18px;
             font-weight: 400;
             margin-bottom: 15px;
             color: #aaa;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
           }
           .preview {
             display: flex;
