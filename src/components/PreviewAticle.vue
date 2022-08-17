@@ -83,6 +83,7 @@
       // 收藏
       async collectBtn(id, index) {
         if (this.userInfo._id) {
+          // 判断收藏的文章中是否包含当前用户
           if (this.favorited[index].indexOf(this.userInfo._id) !== -1) {
             // TODO取消收藏
             const res = await this.$http({

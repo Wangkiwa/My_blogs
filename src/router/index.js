@@ -7,12 +7,16 @@ import Vue from "vue"
 import VueRouter from "vue-router"
 import Home from "../components/Home.vue"
 import Login from "../views/SignIn.vue"
+import storage from "@/utils/storage"
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: "/",
     name: "home",
+    meta: {
+      title: "主页",
+    },
     component: Home,
   },
   {
@@ -76,5 +80,13 @@ const routes = [
 const router = new VueRouter({
   routes,
 })
-
+router.beforeEach((to, from, next) => {
+  if (to.path === "/login" || to.path === "/register" || to.path === "/")
+    return next()
+  if (!storage.getItem("userInfo")) return next("/login")
+  next()
+})
+router.afterEach((to, from) => {
+  document.title = to.meta.title
+})
 export default router
