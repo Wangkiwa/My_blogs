@@ -85,10 +85,19 @@ const router = new VueRouter({
 })
 // 全局前置路由
 router.beforeEach((to, from, next) => {
-  if (to.path === "/login" || to.path === "/register" || to.path === "/")
+  if (to.path === "/login" || to.path === "/register" || to.path === "/") {
     return next()
-  if (!storage.getItem("userInfo")) return next("/login")
-  next()
+  }
+  if (!storage.getItem("userInfo")) {
+    console.log("未获得!")
+    return next("/login")
+  } else {
+    next()
+  }
+  // if (to.path === "/login" || to.path === "/register" || to.path === "/")
+  //   return next()
+  // if (!storage.getItem("userInfo")) return next("/login")
+  // next()
 })
 // 全局后置路由
 router.afterEach((to, from) => {

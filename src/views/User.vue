@@ -157,9 +157,6 @@
     }
   }
   .active-enter-active {
-    animation: active 1s ease-in-out;
-  }
-  .active-leave-active {
-    animation: active 1s ease-in-out;
+    animation: active 2s ease-in-out;
   }
 </style>

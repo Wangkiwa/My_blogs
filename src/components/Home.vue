@@ -32,10 +32,10 @@
           <!-- 文章路由 -->
           <transition name="active">
             <SelfActicles v-if="!isActive"></SelfActicles>
-          </transition>
-          <transition name="active">
             <Articles v-if="isActive"></Articles>
           </transition>
+          <!-- 分页 -->
+          <!-- <Pager></Pager> -->
         </div>
         <!-- 标签路由 -->
         <!-- <div class="Tags-wrapper">
@@ -52,6 +52,7 @@
   import Tags from "../views/Tags.vue"
   import Articles from "../views/Articles.vue"
   import SelfActicles from "../views/SelfActicles.vue"
+  import Pager from "./Pager.vue"
   export default {
     data() {
       return {
@@ -66,6 +67,7 @@
       Tags,
       Articles,
       SelfActicles,
+      Pager,
     },
   }
 </script>
@@ -186,9 +188,6 @@
     }
   }
   .active-enter-active {
-    animation: active 1s ease-in-out;
-  }
-  .active-leave-active {
-    animation: active 1s ease-in-out;
+    animation: active 2s ease-in-out;
   }
 </style>

@@ -68,9 +68,9 @@
             return this.$message.error(msgs.toString(msgs) + "!")
           }
           // TO-DO 登录成功
-          this.$router.push("/")
           this.$store.commit("SAVEUSERINFO", res)
           this.$storage.setItem("userInfo", res)
+          this.$router.push("/")
           this.$message.success("登录成功！")
         } else {
           return this.$message.error("请输入正确信息！")

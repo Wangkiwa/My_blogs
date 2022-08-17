@@ -72,7 +72,9 @@
             <p>{{ article.createdAt | dateString }}</p>
           </div>
           <div class="article-btn" v-if="userInfo._id === article.author._id">
-            <button class="edit-btn">编辑文章</button>
+            <button class="edit-btn" @click="editArticleBtn(article._id)">
+              编辑文章
+            </button>
             <button class="remove-btn" @click="removeArticleBtn">
               删除文章
             </button>
