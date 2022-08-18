@@ -38,9 +38,9 @@
           <Pager v-if="!isActive"></Pager>
         </div>
         <!-- 标签路由 -->
-        <!-- <div class="Tags-wrapper">
+        <div class="Tags">
           <Tags></Tags>
-        </div> -->
+        </div>
       </div>
     </div>
   </div>
@@ -158,11 +158,6 @@
             }
           }
         }
-        .Tags-wrapper {
-          width: 33%;
-          height: 220px;
-          background-color: darkgoldenrod;
-        }
       }
     }
   }
@@ -189,5 +184,8 @@
   }
   .active-enter-active {
     animation: active 2s ease-in-out;
+  }
+  .Tags {
+    width: 35%;
   }
 </style>

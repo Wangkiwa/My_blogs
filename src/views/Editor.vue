@@ -60,11 +60,10 @@
     components: {
       Top,
     },
-
     methods: {
       // 发布文章
       async sendArticleBtn() {
-        this.sendData.article.tagList = this.tags.split(" ")
+        this.sendData.article.tagList = this.tags.toLowerCase().split(" ")
         const res = await this.$http({
           method: "post",
           url: "/articles",
