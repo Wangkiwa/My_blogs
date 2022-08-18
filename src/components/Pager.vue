@@ -5,15 +5,44 @@
 -->
 <template>
   <div>
-    <input type="button" value="首页" @click="firstPage" />
-    <input type="button" value="上一页" @click="prevPage" />
-    <input type="button" value="下一页" @click="nextPage" />
-    <input type="button" value="尾页" @click="lastPage" />
+    <input type="button" value="上一页" />
+    <input
+      type="button"
+      v-for="(page, index) in pager"
+      :key="index"
+      :value="pageNum"
+      @click="toPager(index)"
+    />
+    <input type="button" value="下一页" />
   </div>
 </template>
 
 <script>
-  export default {}
+  export default {
+    data() {
+      return {
+        pageNum: "",
+        pager: [{ id: 0 }],
+      }
+    },
+    created() {
+      this.getAllArticle()
+    },
+    methods: {
+      async getAllArticle() {
+        const res = await this.$http({
+          method: "get",
+          url: "/articles",
+        })
+        console.log(res)
+        const pageNum = Math.ceil(res.articlesCount / 10)
+        this.pageNum = pageNum
+      },
+      toPager(index) {
+        console.log(index)
+      },
+    },
+  }
 </script>
 
 <style></style>

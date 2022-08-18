@@ -31,7 +31,7 @@
           </div>
           <div class="pwdIpt">
             <input
-              type="text"
+              type="password"
               placeholder="密码"
               v-model="user.password"
               @blur="pwdValidate"

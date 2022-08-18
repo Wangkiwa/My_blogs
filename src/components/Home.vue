@@ -35,7 +35,7 @@
             <Articles v-if="isActive"></Articles>
           </transition>
           <!-- 分页 -->
-          <!-- <Pager></Pager> -->
+          <Pager v-if="!isActive"></Pager>
         </div>
         <!-- 标签路由 -->
         <!-- <div class="Tags-wrapper">

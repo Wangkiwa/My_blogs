@@ -12,6 +12,9 @@
           <img v-if="preview" :src="preview" alt="" />
           <img v-else :src="'http://localhost:8888' + userInfo.image" alt="" />
         </div>
+        <div class="exit">
+          <button @click.prevent="userExitBtn">点此退出</button>
+        </div>
         <input
           ref="iptFile"
           class="firstInpt"
@@ -60,6 +63,7 @@
       this.getUserInfo()
     },
     methods: {
+      // 头像
       imgChange(e) {
         const file = e.target.files[0]
         this.preview = URL.createObjectURL(file)
@@ -107,6 +111,17 @@
           this.$message.error(userInfo.msg)
         }
       },
+      // 退出
+      userExitBtn() {
+        if (confirm("确定要退出吗？")) {
+          this.$storage.clearItem("userInfo")
+          this.$router.push("/login")
+          window.location.reload()
+          this.$message.success("退出成功！")
+        } else {
+          this.$message.warning("已取消！")
+        }
+      },
     },
   }
 </script>
@@ -131,6 +146,17 @@
           height: 100%;
           overflow: hidden;
           border-radius: 50%;
+        }
+      }
+      .exit {
+        margin: -10px auto;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%);
+        button {
+          border-radius: 8px;
+          border: 1px solid rgb(144, 24, 24);
+          background: #fff;
         }
       }
       input,

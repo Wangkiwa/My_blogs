@@ -11,7 +11,7 @@ export default {
     window.localStorage.setItem(config.nameSpace, JSON.stringify(storage))
   },
   getStorage() {
-    return JSON.parse(window.localStorage.getItem("myBlog") || "{}")
+    return JSON.parse(window.localStorage.getItem(config.nameSpace) || "{}")
   },
   getItem(key) {
     return this.getStorage()[key]

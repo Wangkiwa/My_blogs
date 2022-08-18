@@ -23,7 +23,7 @@
 
           <div class="pwdIpt">
             <input
-              type="text"
+              type="password"
               placeholder="密码"
               v-model="loginValue.user.password"
               @blur="loginPwdValidate"
@@ -53,6 +53,7 @@
     components: {
       Top,
     },
+
     methods: {
       // 登录
       async loginBtn() {
