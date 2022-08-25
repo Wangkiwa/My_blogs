@@ -116,8 +116,10 @@
         if (confirm("确定要退出吗？")) {
           this.$storage.clearItem("userInfo")
           this.$router.push("/login")
-          window.location.reload()
           this.$message.success("退出成功！")
+          setTimeout(() => {
+            window.location.reload()
+          }, 1000)
         } else {
           this.$message.warning("已取消！")
         }

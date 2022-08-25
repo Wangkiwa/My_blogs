@@ -31,6 +31,7 @@ $http.interceptors.response.use(res => {
     Message.error(TOKEN_INVALID)
     setTimeout(() => {
       router.push("/login")
+      window.location.reload()
     }, 1500)
     return Promise.reject(TOKEN_INVALID)
   } else if (status === 400) {

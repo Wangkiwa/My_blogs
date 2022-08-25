@@ -32,10 +32,13 @@
           <!-- 文章路由 -->
           <transition name="active">
             <SelfActicles v-if="!isActive"></SelfActicles>
-            <Articles v-if="isActive"></Articles>
+            <Articles ref="allArticle" v-if="isActive"></Articles>
           </transition>
           <!-- 分页 -->
-          <Pager v-if="!isActive"></Pager>
+
+          <!-- page-size每页显示的个数 
+         total 总共的条数
+          -->
         </div>
         <!-- 标签路由 -->
         <div class="Tags">

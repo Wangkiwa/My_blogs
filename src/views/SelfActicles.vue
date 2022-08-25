@@ -61,35 +61,69 @@
         </div>
       </div>
     </div>
+    <Pager
+      @current-change="getCurrent"
+      @prev-click="prevBtn"
+      @next-click="nextBtn"
+      :total="totalPages"
+      :current-page="current"
+    ></Pager>
   </div>
 </template>
 
 <script>
   import { mapState } from "vuex"
+  import Pager from "../components/Pager.vue"
   export default {
     data() {
       return {
         articles: [],
         favorited: [],
+        // 控制每页显示多少条数据
+        limit: 2,
+        // 当前页码
+        current: 1,
+        // 总数
+        totalPages: 1,
       }
     },
     computed: {
       ...mapState(["userInfo"]),
     },
+    components: {
+      Pager,
+    },
     created() {
       this.getAllArticles()
+      this.getMyArticleCount()
     },
     methods: {
-      async getAllArticles() {
+      // 获取文章的数量
+      async getMyArticleCount() {
         const res = await this.$http({
           method: "get",
-          url: "/articles",
+          url: `/articles`,
           params: {
             author: this.$route.params.username
               ? this.$route.params.username.slice(1)
               : this.userInfo.username,
           },
         })
+        const { articles } = res
+        // 个人文章需要根据长度获取总页码数
+        this.totalPages = Math.ceil(articles.length / this.limit)
+      },
+      async getAllArticles(limit = this.limit, offset) {
+        const res = await this.$http({
+          method: "get",
+          url: `/articles?limit=${limit}&offset=${offset}`,
+          params: {
+            author: this.$route.params.username
+              ? this.$route.params.username.slice(1)
+              : this.userInfo.username,
+          },
+        })
+        console.log(res)
         this.articles = res.articles
         // 遍历出来收藏的数据
         const favorited = this.articles.map(item => item.favorited)
@@ -125,6 +159,32 @@
           this.$message.error("请登录后收藏")
           this.$router.push("/login")
         }
+      },
+      // 获取文章
+      async getCurrent(n) {
+        console.log(n)
+        this.current = n
+        this.getAllArticles(this.limit, (this.current - 1) * this.limit)
+        // const res = await this.$http({
+        //   method: "get",
+        //   url: "/articles?offset=" + (n - 1) * this.limit,
+        // })
+      },
+      // 上一页
+      prevBtn() {
+        this.current -= 1
+        if (this.current < 1) {
+          return (this.current = 1)
+        }
+        this.getAllArticles(this.limit, (this.current - 1) * this.limit)
+      },
+      // 下一页
+      nextBtn() {
+        this.current += 1
+        if (this.current > this.totalPages) {
+          return (this.current = this.totalPages)
+        }
+        this.getAllArticles(this.limit, (this.current - 1) * this.limit)
       },
     },
   }

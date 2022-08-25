@@ -50,17 +50,31 @@
         </router-link>
       </div>
     </div>
+    <Pager
+      @current-change="getCurrent"
+      @prev-click="prevBtn"
+      @next-click="nextBtn"
+      :total="totalPages"
+      :current-page="current"
+    ></Pager>
   </div>
 </template>
 
 <script>
   import { mapState } from "vuex"
+  import Pager from "./Pager.vue"
   export default {
     data() {
       return {
         articles: [],
         favorited: [],
+        limit: 2,
+        current: 1,
+        totalPages: 1,
       }
+    },
+    components: {
+      Pager,
     },
     computed: {
       ...mapState(["userInfo"]),
@@ -70,11 +84,14 @@
     },
     methods: {
       // 获取所有文章
-      async getAllArticles() {
+      async getAllArticles(limit = this.limit, offset) {
         const res = await this.$http({
           method: "get",
-          url: "/articles",
+          url: `/articles?limit=${limit}&offset=${offset}`,
         })
+        //  页码总数
+        this.totalPages = Math.ceil(res.articlesCount / limit)
+        // 每页文章列表
         this.articles = res.articles
         // 遍历出来收藏的数据
         const favorited = this.articles.map(item => item.favorited)
@@ -108,9 +125,35 @@
             this.$message.success(res.message)
           }
         } else {
-          this.$message.error("请登录后收藏")
           this.$router.push("/login")
+          this.$message.error("请登录后收藏")
         }
+      },
+      // 获取文章
+      async getCurrent(n) {
+        console.log(n)
+        this.current = n
+        this.getAllArticles(this.limit, (this.current - 1) * this.limit)
+        // const res = await this.$http({
+        //   method: "get",
+        //   url: "/articles?offset=" + (n - 1) * this.limit,
+        // })
+      },
+      // 上一页
+      prevBtn() {
+        this.current -= 1
+        if (this.current < 1) {
+          return (this.current = 1)
+        }
+        this.getAllArticles(this.limit, (this.current - 1) * this.limit)
+      },
+      // 下一页
+      nextBtn() {
+        this.current += 1
+        if (this.current > this.totalPages) {
+          return (this.current = this.totalPages)
+        }
+        this.getAllArticles(this.limit, (this.current - 1) * this.limit)
       },
     },
   }

@@ -11,6 +11,7 @@
 
 <script>
   import PreviewAticle from "../components/PreviewAticle.vue"
+
   export default {
     components: { PreviewAticle },
     data() {
@@ -18,6 +19,7 @@
         articles: [],
       }
     },
+
     created() {
       this.getAllArticles()
     },

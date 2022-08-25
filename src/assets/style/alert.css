@@ -1,0 +1,104 @@
+.T-success {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  left: 50%;
+  top: 0%;
+  z-index: 2222;
+  transform: translate(-50%);
+  min-height: 40px;
+  line-height: 40px;
+  padding: 0px 15px 0px 15px;
+  min-width: 25%;
+  font-size: 15px;
+  box-sizing: border-box;
+  background-color: #f0f9eb;
+  border-color: #e1f3d8;
+  animation: Topmove 1s;
+  color: #67c23a;
+  border-radius: 8px;
+}
+.T-success::before {
+  content: "√";
+  color: #fff;
+  width: 16px;
+  height: 16px;
+  background-color: #67c23a;
+  margin-top: 13px;
+  margin-right: 5px;
+  line-height: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  border-radius: 50%;
+}
+.T-warning {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  left: 50%;
+  top: 0%;
+  z-index: 2222;
+  transform: translate(-50%);
+  min-height: 40px;
+  line-height: 40px;
+  padding: 0px 15px 0px 15px;
+  min-width: 25%;
+  font-size: 15px;
+  box-sizing: border-box;
+  background-color: #fdf6ec;
+  border-color: #faecd8;
+  animation: Topmove 1s;
+  color: #e6a23c;
+  border-radius: 8px;
+}
+.T-warning::before {
+  content: "!";
+  color: #fff;
+  width: 16px;
+  height: 16px;
+  background-color: #e6a23c;
+  margin-top: 13px;
+  margin-right: 5px;
+  line-height: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  border-radius: 50%;
+}
+.T-error {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  left: 50%;
+  top: 0%;
+  z-index: 2222;
+  transform: translate(-50%);
+  min-height: 40px;
+  line-height: 40px;
+  padding: 0px 15px 0px 15px;
+  min-width: 25%;
+  font-size: 15px;
+  box-sizing: border-box;
+  background-color: #fef0f0;
+  border-color: #fde2e2;
+  animation: Topmove 1s;
+  color: #f56c6c;
+  border-radius: 8px;
+}
+.T-error::before {
+  content: "×";
+  color: #fff;
+  width: 16px;
+  height: 16px;
+  background-color: #f56c6c;
+  margin-top: 13px;
+  margin-right: 5px;
+  line-height: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  border-radius: 50%;
+}
+@keyframes Topmove {
+  from {
+    top: -100px;
+  }
+}
