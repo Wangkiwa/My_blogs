@@ -31,8 +31,10 @@ $http.interceptors.response.use(res => {
     Message.error(TOKEN_INVALID)
     setTimeout(() => {
       router.push("/login")
+      // 清除token再刷新页面
+      storage.clearItem("userInfo")
       window.location.reload()
-    }, 1500)
+    }, 1000)
     return Promise.reject(TOKEN_INVALID)
   } else if (status === 400) {
     return data

@@ -119,7 +119,7 @@
           this.$message.success("退出成功！")
           setTimeout(() => {
             window.location.reload()
-          }, 1000)
+          }, 100)
         } else {
           this.$message.warning("已取消！")
         }
